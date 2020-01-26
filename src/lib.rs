@@ -76,6 +76,10 @@ impl Universe {
         .collect()
     }
 
+    fn all_dead_init(size: u32) -> Vec<Cell> {
+        (0..size).map(|_| { Cell::Dead }).collect()
+    }
+
     /* fn bitset_init(size: u32) -> FixedBitSet {
         let size = size as usize;
         let mut cells = FixedBitSet::with_capacity(size);
@@ -140,6 +144,16 @@ impl Universe {
             width,
             height,
             cells,
+        }
+    }
+
+    pub fn all_dead(self) -> Universe {
+        let cells = Universe::all_dead_init(self.width * self.height);
+
+        Universe {
+            width: self.width,
+            height: self.height,
+            cells
         }
     }
 
