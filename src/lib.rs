@@ -188,6 +188,52 @@ impl Universe {
         self.cells[idx].toggle();
     }
 
+    pub fn draw_glider(&mut self, row: u32, column: u32) {        
+        let n_row = (row - 1) % self.height;
+        let n_col = (column - 1) % self.width;
+        let idx = self.get_index(n_row, n_col);
+        self.cells[idx] = Cell::Dead;
+
+        let n_row = (row - 1) % self.height;
+        //let n_col = (column - 1) % self.width;
+        let idx = self.get_index(n_row, column);
+        self.cells[idx] = Cell::Alive;
+        //
+        
+        let n_row = (row - 1) % self.height;
+        let n_col = (column + 1) % self.width;
+        let idx = self.get_index(n_row, n_col);
+        self.cells[idx] = Cell::Dead;
+
+        //let n_row = (row - 1) % self.height;
+        let n_col = (column - 1) % self.width;
+        let idx = self.get_index(row, n_col);
+        self.cells[idx] = Cell::Dead;
+
+        let idx = self.get_index(row, column);
+        self.cells[idx] = Cell::Dead;
+
+        let n_row = (row + 1) % self.height;
+        let n_col = (column + 1) % self.width;
+        let idx = self.get_index(n_row, n_col);
+        self.cells[idx] = Cell::Alive;
+        
+        let n_col = (column + 1) % self.width;
+        let idx = self.get_index(row, n_col);
+        self.cells[idx] = Cell::Alive;
+
+        let n_row = (row + 1) % self.height;
+        let n_col = (column - 1) % self.width;
+        let idx = self.get_index(n_row, n_col);
+        self.cells[idx] = Cell::Alive;
+
+        for i in [0, 1].iter().cloned() {            
+            let n_col = (column + i) % self.width;
+            let idx = self.get_index(n_row, n_col);
+            self.cells[idx] = Cell::Alive;
+        }
+    }
+
     /* pub fn cells(&self) -> *const u32 {
         self.cells.as_slice().as_ptr()
     } */
